@@ -1,0 +1,241 @@
+---
+title: "preprocessing_data"
+author: "Caroline Graham"
+date: "3/31/2020"
+output: html_document
+---
+
+In this R markdown script I provide code to help with preprocessing the diet data to do further analyses. This includes code to categorize time periods (positive PDO vs. negative PDO), categorize life stages (juveniles, adults, mixed), edit the spatial data for easier analysis (scale from 0° to 360°), and remove duplicate data.
+
+
+## Loading packages and data
+
+```{r}
+
+#loading packages
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+packages <- c("tidyverse", "here")
+ipak(packages)
+
+#importing data
+diet_data <- read_csv(here::here("data", "diet_data.csv"), col_types = "iiiiccccccccttnnnncccciiiiiicccnnnnnnicciciiiiicccccccccccnccccnnnnnnc")
+
+```
+
+
+## Create a new column called 'time_period_category' in the diet_data dataframe 
+
+In this new column, salmon samples will either be classified as coming from the negative PDO period (1959-1969) or the positive PDO period (1987-1997). If data were collected over a range of years that falls at least partially outside of the 2 decadal time periods, then these rows of data will have an NA value.
+
+```{r}
+
+#create new column for time period category information in the diet_data dataframe
+diet_data$time_period_category <- NA
+
+#categorizing based on time period: warm or cool
+diet_data$time_period_category[diet_data$year_min >= 1959 & diet_data$year_min <= 1969 & is.na(diet_data$year_max)] = "negative"
+diet_data$time_period_category[diet_data$year_min >= 1987 & diet_data$year_min <= 1997 & is.na(diet_data$year_max)] = "positive"
+diet_data$time_period_category[diet_data$year_min >= 1959 & diet_data$year_min <= 1968 & diet_data$year_max >= 1960 & diet_data$year_max <= 1969] = "negative"
+diet_data$time_period_category[diet_data$year_min >= 1987 & diet_data$year_min <= 1996 & diet_data$year_max >= 1988 & diet_data$year_max <= 1997] = "positive"
+
+```
+
+
+## Create a new column called 'predator_life_stage_category' in the diet_data dataframe 
+
+In this new column, salmon samples will either be classified as juvenile, adult, or mixed based on the various life stage metrics. Unknown predator life stages will have an NA value.
+
+The rules for determining whether a salmon is a juvenile or adult are as follows:
+  -life stage: juvenile = juvenile, adult = adult
+  -ocean age: 0 = juvenile, all other ocean ages = adult
+  -freshwater age: any freshwater age with no ocean age = juvenile
+  -maturity: juvenile = juvenile, immature = adult, maturing = adult, mature = adult, kelt = adult
+  -length: =<30 cm = juvenile, >30 cm = adult
+  -weight: =<293 g = juvenile, >293 g = adult
+
+```{r}
+
+#create new column for life stage category information in the diet_data dataframe
+diet_data$predator_life_stage_category <- NA
+
+#categorizing based on life stage
+diet_data$predator_life_stage_category[diet_data$predator_life_stage == "juvenile"] = "juvenile"
+diet_data$predator_life_stage_category[diet_data$predator_life_stage == "adult"] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_life_stage_min == "juvenile" & diet_data$predator_life_stage_max == "adult"] = "mixed"
+
+#categorizing based on ocean age
+diet_data$predator_life_stage_category[diet_data$predator_ocean_age == 0] = "juvenile"
+diet_data$predator_life_stage_category[diet_data$predator_ocean_age > 0] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_ocean_age_min == 0] = "mixed"
+diet_data$predator_life_stage_category[diet_data$predator_ocean_age_min != 0] = "adult"
+
+#categorizing based on freshwater age
+diet_data$predator_life_stage_category[!is.na(diet_data$predator_freshwater_age) & is.na(diet_data$predator_ocean_age) & is.na(diet_data$predator_ocean_age_min) & is.na(diet_data$predator_ocean_age_max)] = "juvenile"
+diet_data$predator_life_stage_category[!is.na(diet_data$predator_freshwater_age_min) & is.na(diet_data$predator_ocean_age) & is.na(diet_data$predator_ocean_age_min) & is.na(diet_data$predator_ocean_age_max)] = "juvenile"
+
+#categorizing based on maturity
+diet_data$predator_life_stage_category[diet_data$predator_maturity == "juvenile"] = "juvenile"
+diet_data$predator_life_stage_category[diet_data$predator_maturity == "immature"] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_maturity == "maturing"] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_maturity == "mature"] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_maturity == "kelt"] = "adult"
+diet_data$predator_life_stage_category[!is.na(diet_data$predator_maturity_min)] = "mixed"
+
+#categorizing based on length
+diet_data$predator_life_stage_category[diet_data$predator_length_value_cm <= 30] = "juvenile"
+diet_data$predator_life_stage_category[diet_data$predator_length_value_cm > 30] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_length_min_cm <= 30 & diet_data$predator_length_max_cm <= 30] = "juvenile"
+diet_data$predator_life_stage_category[diet_data$predator_length_min_cm > 30 & diet_data$predator_length_max_cm > 30] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_length_min_cm <= 30 & diet_data$predator_length_max_cm > 30] = "mixed"
+diet_data$predator_life_stage_category[diet_data$predator_length_min_cm <= 30 & is.na(diet_data$predator_length_max_cm)] = "mixed"
+diet_data$predator_life_stage_category[diet_data$predator_length_min_cm > 30 & is.na(diet_data$predator_length_max_cm)] = "adult"
+diet_data$predator_life_stage_category[is.na(diet_data$predator_length_min_cm) & diet_data$predator_length_max_cm <= 30] = "juvenile"
+diet_data$predator_life_stage_category[is.na(diet_data$predator_length_min_cm) & diet_data$predator_length_max_cm > 30] = "mixed"
+
+#categorizing based on weight
+diet_data$predator_life_stage_category[diet_data$predator_weight_value_g <= 293] = "juvenile"
+diet_data$predator_life_stage_category[diet_data$predator_weight_value_g  > 293] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_weight_min_g  <= 293 & diet_data$predator_weight_max_g  <= 293] = "juvenile"
+diet_data$predator_life_stage_category[diet_data$predator_weight_min_g  > 293 & diet_data$predator_weight_max_g  > 293] = "adult"
+diet_data$predator_life_stage_category[diet_data$predator_weight_min_g  <= 293 & diet_data$predator_weight_max_g  > 293] = "mixed"
+diet_data$predator_life_stage_category[diet_data$predator_weight_min_g <= 293 & is.na(diet_data$predator_weight_max_g)] = "mixed"
+diet_data$predator_life_stage_category[diet_data$predator_weight_min_g > 293 & is.na(diet_data$predator_weight_max_g)] = "adult"
+diet_data$predator_life_stage_category[is.na(diet_data$predator_weight_min_g) & diet_data$predator_weight_max_g <= 293] = "juvenile"
+diet_data$predator_life_stage_category[is.na(diet_data$predator_weight_min_g) & diet_data$predator_weight_max_g > 293] = "mixed"
+
+```
+
+
+## Editing spatial data 
+
+The spatial data is found in three different formats: polygons, transects, and points. These are all represented through the lat_min, lat_max, lon_min and lon_max columns and can be sepearated using the code below. Since the longitude values are both positive and negative, this causes challenges when working with the spatial data. This code can be used to edit the spatial data so that longitude values are on a scale from 0° to 360° and to make sure values are in the proper order (min vs. max).
+
+```{r}
+
+#selecting spatial data with unique predator_ids
+select_spatial <- diet_data %>% 
+  dplyr::select(predator_id, lat_min, lat_max, lon_min, lon_max) %>% 
+  unique()
+
+###filtering out the different kinds of lat/long data - points, lines and transects
+
+#subsetting polygon data
+data1_diet <- select_spatial %>% 
+  dplyr::select(lat_min, lat_max, lon_min, lon_max, predator_id)  %>%
+  dplyr::filter(!is.na(lat_min) & !is.na(lat_max) & !is.na(lon_min) & !is.na(lon_max))
+
+#subsetting horizontal transect data
+data2_diet <- select_spatial %>% 
+  dplyr::select(lat_min, lat_max, lon_min, lon_max, predator_id)  %>% 
+  dplyr::filter(!is.na(lat_min) & (is.na(lat_max)) & !is.na(lon_min) & !is.na(lon_max))
+
+#subsetting vertical transect data
+data3_diet <- select_spatial %>% 
+  dplyr::select(lat_min, lat_max, lon_min, lon_max, predator_id)  %>% 
+  dplyr::filter(!is.na(lat_min) & !is.na(lat_max) & !is.na(lon_min) & (is.na(lon_max)))
+
+#subsetting point data
+data4_diet <- select_spatial %>% 
+  dplyr::select(lat_min, lat_max, lon_min, lon_max, predator_id)  %>% 
+  dplyr::filter(!is.na(lat_min) & (is.na(lat_max)) & !is.na(lon_min) & (is.na(lon_max)))
+
+#fixing the lon values so they can be plotted on a scale from 0 to 360 degrees
+data1_diet$lon_min[data1_diet$lon_min<0] = data1_diet$lon_min[data1_diet$lon_min<0] + 360
+data1_diet$lon_max[data1_diet$lon_max<0] = data1_diet$lon_max[data1_diet$lon_max<0] + 360
+
+data2_diet$lon_min[data2_diet$lon_min<0] = data2_diet$lon_min[data2_diet$lon_min<0] + 360
+data2_diet$lon_max[data2_diet$lon_max<0] = data2_diet$lon_max[data2_diet$lon_max<0] + 360
+
+data3_diet$lon_min[data3_diet$lon_min<0] = data3_diet$lon_min[data3_diet$lon_min<0] + 360
+
+data4_diet$lon_min[data4_diet$lon_min<0] = data4_diet$lon_min[data4_diet$lon_min<0] + 360
+
+#switching the lon values so that they are in the correct order (min vs. max)
+data1_diet$lon_min1 <- ifelse(data1_diet$lon_min > data1_diet$lon_max, data1_diet$lon_max, data1_diet$lon_min)
+data1_diet$lon_max1 <- ifelse(data1_diet$lon_min > data1_diet$lon_max, data1_diet$lon_min, data1_diet$lon_max)
+
+data2_diet$lon_min1 <- ifelse(data2_diet$lon_min > data2_diet$lon_max, data2_diet$lon_max, data2_diet$lon_min)
+data2_diet$lon_max1 <- ifelse(data2_diet$lon_min > data2_diet$lon_max, data2_diet$lon_min, data2_diet$lon_max)
+
+#filtering and renaming columns
+data1_diet_edit <- data1_diet %>% 
+  dplyr::select(-lon_min, -lon_max) %>%  
+  dplyr::rename(lon_min = lon_min1,
+                lon_max = lon_max1)
+
+data2_diet_edit <- data2_diet %>% 
+  dplyr::select(-lon_min, -lon_max) %>%  
+  dplyr::rename(lon_min = lon_min1,
+                lon_max = lon_max1)
+
+#joining all spatial data
+spatial_data_all_join <- rbind(data1_diet_edit, data2_diet_edit, data3_diet, data4_diet)
+
+#joining edited spatial data to diet_data dataframe
+diet_data_rm_old_spatial <- diet_data %>% dplyr::select(-lat_min, -lat_max, -lon_min, -lon_max)
+diet_data_new_spatial <- left_join(diet_data_rm_old_spatial, spatial_data_all_join, by = "predator_id")
+
+```
+
+
+## Removing duplicates from the diet data frame
+
+In this section of code I provide 4 different ways to sort and analyze the diet data: presence/absence, weight/volume, numerical, or frequency of occurrence of prey items. For each of these different types of diet data, code is provided to remove duplicate data from the diet_data dataframe. Duplicate data in this case means either there is another source that reports the same samples or the same source reports the sample using different diet metrics. In selecting which version of the data to keep I preferentially kept data that were more detailed and/or more accurate (e.g., data presented in a table instead of a figure).
+
+```{r}
+
+#removing overlapping data for presence/absence analysis
+diet_data_presence_absence <- diet_data_new_spatial %>% 
+  dplyr::filter(!(predator_id %in% c(562:585, 874, 875, 888, 889, 909, 910, 923, 924, 805:816, 844:870, 6093:6094, 6118, 6119, 6128, 1039:1050, 1560:1565, 1586, 1587, 1589, 1590, 1592, 1593, 1595, 1596, 1598:1602, 1604, 1605, 1607, 1608, 1610, 1611, 1613, 1614, 1616, 1617, 1618, 1639:1641, 1670:1675, 5792:5800, 1490:1510, 77:110, 6099:6101, 6120:6123, 6138, 6143, 6145:6147, 6153, 6155:6160, 6178, 6185, 6198:6202, 6206:6209, 6216:6226, 73, 76, 6081, 1036, 1037, 1038, 5983:5996, 6003:6009, 6114, 6127, 1537, 77:82, 5846:5862, 5939:5960, 778:786))) %>% 
+  dplyr::filter(!(predator_id %in% c(619:627) & type_diet_data == "percent weight of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(6010:6012) & is.na(diet_data_units))) %>% 
+  dplyr::filter(!(predator_id %in% c(770:804) & type_diet_data == "absolute weight of prey")) %>%
+  dplyr::filter(!(predator_id %in% c(947:1008) & type_diet_data == "frequency of occurrence")) %>% 
+  dplyr::filter(!(predator_id %in% c(1032:1035) & type_diet_data == "percent volume of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(1051:1292) & type_diet_data == "absolute number of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(1397:1420) & type_diet_data == "percent number of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(1397:1420) & type_diet_data == "percent weight of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(1425:1445) & type_diet_data == "percent number of prey")) %>% 
+  dplyr::filter(!(predator_id == 1522 & type_diet_data == "average weight of prey")) %>% 
+  dplyr::filter(!(predator_id == 1522 & type_diet_data == "absolute weight of prey")) %>% 
+  dplyr::filter(!(predator_id == 1522 & type_diet_data == "percent weight of prey")) %>% 
+  dplyr::filter(!(predator_id == 1522 & type_diet_data == "frequency of occurrence" & diet_data_units == "percent" )) %>% 
+  dplyr::filter(!(predator_id %in% c(1535, 1536, 1538:1540) & type_diet_data == "index of fullness")) %>% 
+  dplyr::filter(!(predator_id %in% c(1689:1719) & type_diet_data == "stomach content index")) %>% 
+  dplyr::filter(!(predator_id %in% c(5801:5805) & type_diet_data == "percent weight of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(5806:5810) & type_diet_data == "average number of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(5823:5835) & type_diet_data == "stomach content index")) %>% 
+  dplyr::filter(!(predator_id %in% c(5836:5845) & type_diet_data == "percent volume of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(5836:5845) & type_diet_data == "stomach content index")) %>% 
+  dplyr::filter(!(predator_id %in% c(394:401) & type_diet_data == "percent weight of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(5901:5910) & type_diet_data == "percent weight of prey"))
+  
+#removing overlapping data for weight/volume analysis
+diet_data_weight_volume <- diet_data_new_spatial %>% 
+  dplyr::filter(type_diet_data == "percent weight of prey" | type_diet_data == "absolute weight of prey" | type_diet_data == "average weight of prey" | type_diet_data == "percent volume of prey" | type_diet_data == "absolute volume of prey" | type_diet_data == "average volume of prey") %>% 
+  dplyr::filter(!(predator_id %in% c(562:585, 1039:1050, 1560:1565, 1586, 1587, 1589, 1590, 1592, 1593, 1595, 1596, 1598:1602, 1604, 1605, 1607, 1608, 1610, 1611, 1613, 1614, 1616, 1617, 1618, 1639:1641, 1670:1675, 5792:5800, 1490:1510, 77:110, 73, 76, 77:82, 5846:5862, 778:786))) %>% 
+  dplyr::filter(!(predator_id %in% c(770:804) & type_diet_data == "absolute weight of prey")) %>% 
+  dplyr::filter(!(predator_id == 1522 & type_diet_data == "average weight of prey")) %>% 
+  dplyr::filter(!(predator_id == 1522 & type_diet_data == "absolute weight of prey"))
+
+#removing overlapping data for numerical analysis
+diet_data_number <- diet_data_new_spatial %>% 
+  dplyr::filter(type_diet_data == "percent number of prey" | type_diet_data == "average number of prey" | type_diet_data == "absolute number of prey")
+
+#removing overlapping data for frequency of occurrence analysis
+diet_data_frequency <- diet_data_new_spatial %>% 
+  dplyr::filter(type_diet_data == "frequency of occurrence") %>% 
+  dplyr::filter(!(predator_id %in% c(6010:6012) & diet_data_units == "percent")) %>% 
+  dplyr::filter(!(predator_id == 1522 & diet_data_units == "percent"))
+
+```
+
+
+
+

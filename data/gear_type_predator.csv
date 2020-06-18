@@ -1,0 +1,57 @@
+gear_type_predator_id,gear_type,gear_length_value,gear_length_min,gear_length_max,gear_length_units,gear_width_value,gear_width_min,gear_width_max,gear_width_units,gear_depth_value,gear_depth_min,gear_depth_max,gear_depth_units,mesh_size_value,mesh_size_min,mesh_size_max,mesh_size_units,fishing_depth_value,fishing_depth_min,fishing_depth_max,fishing_depth_units,tow_speed_value,tow_speed_min,tow_speed_max,tow_speed_units,duration_deployment_value,duration_deployment_min,duration_deployment_max,duration_deployment_units,gear_notes
+1,drift net,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2,circular tow net,NA,NA,NA,NA,2.1,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,small-mesh round haul seine,110,NA,NA,meters,NA,NA,NA,NA,7,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+4,small-mesh lampara seine,183,NA,NA,meters,NA,NA,NA,NA,14,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+5,surface trawl,NA,528,NA,meters,NA,NA,108,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,50,meters,NA,4.5,5,knots,NA,NA,NA,NA,NA
+6,gillnet,2.45,NA,NA,kilometers,NA,NA,NA,NA,NA,NA,NA,NA,NA,48,157,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+7,surface longline,3.36,NA,NA,kilometers,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+8,gillnet,950,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,115,NA,NA,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+9,gillnet,NA,2.35,2.5,kilometers,NA,NA,NA,NA,NA,NA,NA,NA,NA,48,157,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+10,drift gillnet,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,91,136,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+11,trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+12,gillnet,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+13,beach seine,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+14,purse seine,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+15,liftnet,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+16,surface longline,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+17,beam trawl,85,NA,NA,meters,NA,NA,9.1,meters,NA,NA,NA,NA,2.5,NA,NA,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+18,longline,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+19,surface trawl,NA,528,NA,meters,NA,NA,108,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,50,meters,5,NA,NA,knots,NA,NA,NA,NA,NA
+20,rope trawl,198,NA,NA,meters,NA,NA,52,meters,18,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,minutes,NA
+21,purse seine,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,fine mesh
+22,surface trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+23,surface trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,50,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,60,NA,NA,minutes,NA
+24,gillnet,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,3,meters,NA,48,158,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,12,NA,NA,hours,NA
+25,longline,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA,NA,meters,NA,NA,NA,NA,60,NA,NA,minutes,NA
+26,Sayori tow net,18,NA,NA,meters,NA,NA,8,meters,NA,NA,5,meters,NA,NA,NA,NA,NA,NA,NA,NA,2,NA,NA,knots,30,NA,NA,minutes,"wing nets 7 meters long, towed by two fishing boats"
+27,midwater rope trawl,396,NA,NA,meters,NA,NA,80,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,60,NA,NA,minutes,NA
+28,standard midwater rope trawl,528,NA,NA,meters,NA,NA,108,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,60,NA,NA,minutes,NA
+29,pair trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,260,280,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA
+30,purse seine,273,NA,NA,meters,NA,NA,NA,NA,44,NA,NA,meters,18,NA,NA,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+31,dip-net,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+32,troll,54.9,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.4,61.8,meters,NA,NA,NA,NA,NA,NA,NA,NA,"6 lines, 9 lures per line, barbless hooks"
+33,fingerling drag seine,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+34,midwater rope trawl,NA,NA,NA,NA,NA,NA,41,meters,13,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,knots,NA,NA,NA,NA,NA
+35,longline,3.36,NA,NA,kilometers,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+36,modified midwater trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+37,dual beam trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+38,gillnet,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,48,157,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,49 tans
+39,longline,137,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1.5,2.5,hours,10 hachi and each hachi consisting of 34 hooks and gangions
+40,drift net,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,112,NA,NA,millimeters,NA,0,12,meters,NA,NA,NA,NA,NA,NA,NA,NA,"5-15 tans, amilan multi-F nets"
+41,midwater trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+42,midwater trawl,NA,NA,NA,NA,NA,NA,60,meters,NA,NA,50,meters,NA,12,NA,millimeters,NA,NA,NA,NA,5.5,NA,NA,knots,60,NA,NA,minutes,NA
+43,purse seine,150,NA,NA,meters,NA,NA,NA,NA,10,NA,NA,meters,NA,9.5,27,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+44,two boat trawl,10.3,NA,NA,meters,1.5,NA,NA,meters,2.6,NA,NA,meters,NA,7.5,34,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"two boat trawl (Net size:
+Warps - length 7m, mesh 28-34mm
+Bridle - length 4.5m
+Headline - 8.1m x 4.0m, mesh 25mm
+Main net - length 10.3m, mouth 1.5m x 2.6m, mesh 25mm
+Cod end: length 3m, mesh 7.5mm)"
+45,drift net,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,40,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+46,surface trawl,528,NA,NA,meters,NA,NA,108,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,100,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA
+47,fike net,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,30,NA,NA,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+48,seine net,40,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,10,NA,NA,millimeters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+49,surface trawl,27,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+50,bottom trawl,27,NA,NA,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+51,surface trawl,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,50,meters,NA,NA,NA,NA,NA,NA,NA,NA,NA
