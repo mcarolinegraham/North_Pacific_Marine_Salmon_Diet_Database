@@ -214,7 +214,8 @@ diet_data_presence_absence <- diet_data_new_spatial %>%
   dplyr::filter(!(predator_id %in% c(5836:5845) & type_diet_data == "percent volume of prey")) %>% 
   dplyr::filter(!(predator_id %in% c(5836:5845) & type_diet_data == "stomach content index")) %>% 
   dplyr::filter(!(predator_id %in% c(394:401) & type_diet_data == "percent weight of prey")) %>% 
-  dplyr::filter(!(predator_id %in% c(5901:5910) & type_diet_data == "percent weight of prey"))
+  dplyr::filter(!(predator_id %in% c(5901:5910) & type_diet_data == "percent weight of prey")) %>% 
+  dplyr::filter(!(predator_id %in% c(7201:7204) & type_diet_data == "percent number of prey"))
   
 #removing overlapping data for weight/volume analysis
 diet_data_weight_volume <- diet_data_new_spatial %>% 
@@ -226,7 +227,8 @@ diet_data_weight_volume <- diet_data_new_spatial %>%
 
 #removing overlapping data for numerical analysis
 diet_data_number <- diet_data_new_spatial %>% 
-  dplyr::filter(type_diet_data == "percent number of prey" | type_diet_data == "average number of prey" | type_diet_data == "absolute number of prey")
+  dplyr::filter(type_diet_data == "percent number of prey" | type_diet_data == "average number of prey" | type_diet_data == "absolute number of prey") %>% 
+  dplyr::filter(!(predator_id %in% c(7201:7204) & type_diet_data == "percent number of prey"))
 
 #removing overlapping data for frequency of occurrence analysis
 diet_data_frequency <- diet_data_new_spatial %>% 
