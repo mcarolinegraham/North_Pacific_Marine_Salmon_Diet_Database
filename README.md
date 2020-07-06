@@ -41,7 +41,7 @@ To view and run the content in this repository, the user will need to download [
 
 ## Contributing
 
-This repository is managed by the [Pelagic Ecosystems Laboratory](http://pelagicecosystems.oceans.ubc.ca/) within the Institute for the Oceans and Fisheries at the Unviersity of British Columbia. If you are interested in contributing data to the North Pacific Marine Salmon Diet Database, please contact Dr. Brian Hunt (b.hunt@oceans.ubc.ca).
+This repository is managed by the [Pelagic Ecosystems Laboratory](http://pelagicecosystems.oceans.ubc.ca/) within the Institute for the Oceans and Fisheries at the University of British Columbia. If you are interested in contributing data to the North Pacific Marine Salmon Diet Database, please contact Dr. Brian Hunt (b.hunt@oceans.ubc.ca).
 
 ## Data Usage
 
