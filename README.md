@@ -1,4 +1,4 @@
-# North_Pacific_Marine_Salmon_Diet_Database
+# North Pacific Marine Salmon Diet Database
 
 The North Pacific Marine Salmon Diet Database is a relational database for North Pacific salmon diet data, alongside relevant predator biological data (e.g., length, weight), prey biological data (e.g., caloric content, size), and environmental data (e.g., temperature, salinity). 
 
