@@ -12,7 +12,7 @@ To view and run the content in this repository, the user will need to download [
 
 ## Repository Directories
 
-### Marine Salmon Diet Database (Directory: [npmsdd](https://github.com/mcarolinegraham/North_Pacific_Marine_Salmon_Diet_Database/tree/master/npmsdd))
+### North Pacific Marine Salmon Diet Database (Directory: [npmsdd](https://github.com/mcarolinegraham/North_Pacific_Marine_Salmon_Diet_Database/tree/master/npmsdd))
 
 * [npmsdd_data_entry_template](https://github.com/mcarolinegraham/North_Pacific_Marine_Salmon_Diet_Database/blob/master/npmsdd/npmsdd_data_entry_template.xlsx) - a blank xlsx template for MSDD data entry, there are 7 tabs that correspond to the 7 tables listed in the `npmsdd_documentation.pdf` under the subheading 'How to enter data using csv files'
 * [npmsdd_mysql_database_dump](https://github.com/mcarolinegraham/North_Pacific_Marine_Salmon_Diet_Database/blob/master/npmsdd/npmsdd_mysql_database_dump.zip) - a dumped version of the MySQL database; contains up to date data and code to rebuild the database using MySQL
