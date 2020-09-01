@@ -47,6 +47,10 @@ This repository is managed by the [Pelagic Ecosystems Laboratory](http://pelagic
 
 All data can be used under the license of CC BY with acknowledgement of authors.
 
+## Version
+
+Please note that this is version 1 of the North Pacific Marine Salmon Diet Database.
+
 ## Additional Notes
 
 The authors acknowledge that this data may be eventually housed in another location and will update the information in this repository to reflect any changes to hosting. We used R version 3.6.1, RStudio version 1.2.1335, and MySQL version 8.0.18.
